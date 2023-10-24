@@ -1,0 +1,51 @@
+{% extends 'avitoapp/base.html' %}
+
+
+{% block title %}
+	Редактирование объявления
+{% endblock %}
+
+
+{% block body %}
+
+    <style>
+        body {
+            background-color: #f6f7f9; /* Замените #ffffff на цвет, который вы хотите использовать */
+        }
+
+        .button-cursor {
+            cursor: pointer;
+        }
+    </style>
+
+	<h1>Обновите объявление</h1>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+                {{ form.as_p }}
+
+            <button type="submit" class="button-cursor">
+                Сохранить
+            </button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="button">
+        <form method="get" action="{% url 'avitoapp:your-profile' pk=request.user.id %}">  {# перенаправление на страницу выхода #}
+            <button type="submit" class="button-cursor">Назад</button>
+        </form>
+    </div>
+
+
+    <div>
+        <p>
+        <form method="get" action="{% url 'avitoapp:delete-ad' pk=ad.pk %}">
+            <button type="submit" class="button-cursor">Удаление</button>
+        </form>
+        </p>
+    </div>
+
+{% endblock %}

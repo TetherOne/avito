@@ -1,0 +1,101 @@
+{% block body %}
+    <style>
+        body {
+            background-color: #f6f7f9;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .details-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .details-section {
+            margin-bottom: 15px;
+        }
+
+        .details-section label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .button-cursor {
+            cursor: pointer;
+            background-color: #867DFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .button-cursor:hover {
+            background-color: #867DFF;
+        }
+    </style>
+
+    <div class="details-container">
+        <h3>Детали объявления № {{ ad.pk }}</h3>
+        <div class="details-section">
+            {% if ad.preview %}
+                <img src="{{ ad.preview.url }}" alt="{{ ad.preview.name }}" class="image">
+            {% endif %}
+            <div>
+                {% for image in ad.images.all %}
+                    <div>
+                        <img src="{{ image.image.url }}" alt="{{ image.image.name }}" class="image">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="details-section">
+            <label>Название:</label> {{ ad.name }}
+        </div>
+        <div class="details-section">
+            <label>Описание:</label> {{ ad.description }}
+        </div>
+        <div class="details-section">
+            <label>Цена:</label> {{ ad.price }}
+        </div>
+        <div class="details-section">
+            <label>Адрес:</label> {{ ad.address }}
+        </div>
+        <div class="details-section">
+            <label>Время публикации:</label> {{ ad.created_at }}
+        </div>
+        <div class="details-section">
+            <label>Номер телефона:</label> {{ ad.phone }}
+        </div>
+        <div class="details-section">
+            <label>Имя пользователя:</label> <b>{{ ad.user }}</b>
+        </div>
+
+        <div class="details-section">
+            <form method="get" action="{% url 'avitoapp:main-page' %}">
+                <button type="submit" class="button-cursor">Назад</button>
+            </form>
+        </div>
+
+        <div class="details-section">
+            <form method="get" action="{% url 'avitoapp:profile' pk=ad.pk user_id=ad.user.id %}">
+                <button type="submit" class="button-cursor">Профиль пользователя</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% block body %}
+    <style>
+        body {
+            background-color: #f6f7f9;
+        }
+
+        .button-cursor {
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        label {
+            display: none;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px; /* Увеличено расстояние сюда */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        #description-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        #description {
+            height: 150px;
+        }
+
+        button {
+            background-color: #867DFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #867DFF;
+
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+    </style>
+
+    <h1>Заполните шаблон объявления</h1>
+
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+
+
+            <label for="name"></label>
+            <input type="text" name="name" id="name" placeholder="Название">
+
+            <label id="description-label" for="description">Опишите товар</label>
+            <textarea name="description" id="description" placeholder="Опишите товар" style="height: 150px;"></textarea>
+
+            <label for="price"></label>
+            <input type="text" name="price" id="price" placeholder="Цена">
+
+            <label for="address"></label>
+            <input type="text" name="address" id="address" placeholder="Место встречи">
+
+            <label for="phone"></label>
+            <input type="text" name="phone" id="phone" placeholder="Номер телефона">
+
+            <label for="preview"></label>
+            <input type="file" name="preview" id="preview" accept="image/*">
+
+            <div class="button-container">
+                <button type="submit" class="button-cursor">
+                    Создать
+                </button>
+
+                <button type="button" class="button-cursor" onclick="goBack()">
+                    Назад
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock %}

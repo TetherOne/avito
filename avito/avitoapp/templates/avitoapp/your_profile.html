@@ -1,0 +1,62 @@
+{% extends 'avitoapp/base.html' %}
+
+
+{% block title %}
+	Ваш профиль
+{% endblock %}
+
+
+{% block body %}
+    <style>
+    body {
+    background-color: #f6f7f9; /* Замените #ffffff на цвет, который вы хотите использовать */
+    }
+
+    .image {
+        block-size: 150px;
+    }
+
+    .bio {
+        height: 20px;
+    }
+
+    .button-cursor {
+        cursor: pointer;
+    }
+
+    </style>
+    <h2 class="bio">Имя: {{ request.user.username }}</h2>
+    <h3 class="bio">Дата регистрация: {{ request.user.date_joined }}</h3>
+
+    <div>
+        <p>
+            <form method="get" action="{% url 'avitoapp:main-page'%}">
+                    <button type="submit" class="button-cursor">Назад</button>
+    </form>
+        </p>
+    </div>
+
+    <h2>Активные объявления</h2>
+        {% for ad in ads %}
+            {% if ad.preview %}
+                <img src="{{ ad.preview.url }}" alt="{{ ad.preview.name }}" class="image">
+            {% endif %}
+            <div>Названия: {{ ad.name }}</div>
+            <div>Описание: {{ ad.description }}</div>
+            <div>Цена: {{ ad.price }}</div>
+            <div>Адрес: {{ ad.address }}</div>
+            <div>Время публикации: {{ ad.created_at }}</div>
+            <div>
+                <p>
+                <form method="get" action="{% url 'avitoapp:update' pk=ad.pk %}">
+                    <button type="submit" class="button-cursor">Редактировать</button>
+                </form>
+                </p>
+            </div>
+
+
+
+            <p>-------------------------------</p>
+        {% endfor %}
+
+{% endblock %}

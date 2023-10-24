@@ -1,0 +1,156 @@
+{% extends 'avitoapp/base.html' %}
+
+{% block title %}
+    Главная страница
+{% endblock %}
+
+{% block body %}
+    <style xmlns:cursor="http://www.w3.org/1999/xhtml">
+        body {
+            background-color: #f6f7f9;
+        }
+
+        .search {
+            height: 45px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-button {
+            margin-left: 10px;
+            vertical-align: middle;
+            border-radius: 5px;
+            background-color: rgb(220, 222, 224);
+            border: 1px;
+            height: 26px;
+            cursor: pointer;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+
+            /*margin-left: 534px;*/
+            border-radius: 5px;
+        }
+
+        .button button:hover {
+
+            cursor: pointer;
+        }
+
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .indentation {
+            margin-left: 15px;
+        }
+
+        .image {
+            block-size: 150px;
+        }
+
+        .button-cursor {
+            cursor: pointer;
+        }
+
+        .custom-bg {
+            margin-left: 0px;
+            background-color: #867DFF;
+            height: 40px;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .ads-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: flex-start;
+        }
+
+        .ad-card {
+            max-width: 2060px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .no-preview-text {
+            color: #555;
+            margin-top: 5px;
+        }
+    </style>
+
+    <h1 class="indentation custom-bg center-text">Объявления</h1>
+
+    <div class="search">
+        <form method="GET" action="">
+            <div style="display: flex; align-items: center">
+                {{ search_form.as_p }}
+                <button type="submit" class="search-button">Поиск</button>
+            </div>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="button">
+        <form method="get" action="{% url 'avitoapp:create-ad' %}">
+            <button type="submit" class="button-cursor">Создать объявление</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="button">
+        <form method="get" action="{% url 'avitoapp:your-profile' pk=request.user.id %}">
+            <button type="submit" class="button-cursor">Ваш профиль</button>
+        </form>
+    </div>
+
+    <br>
+
+    {% if user.is_authenticated %}
+        <div class="button">
+            <form method="post" action="{% url 'myauth:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="button-cursor">Выйти</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <br>
+
+    <div class="indentation ads-container">
+        {% for ad in ads %}
+            <div class="ad-card">
+                {% if ad.preview %}
+                    <img src="{{ ad.preview.url }}" alt="{{ ad.preview.name }}" class="image">
+                {% else %}
+                    <div class="no-preview-text">Нет фотографии</div>
+                {% endif %}
+                <div>Название: {{ ad.name }}</div>
+                <div>Цена: {{ ad.price }}</div>
+                <div>Адрес: {{ ad.address }}</div>
+                <b>Имя пользователя: {{ ad.user }}</b>
+                <div>
+                    <a href="{% url 'avitoapp:details-ad' pk=ad.id %}">подробнее</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

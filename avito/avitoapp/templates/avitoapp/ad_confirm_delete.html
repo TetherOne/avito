@@ -1,0 +1,62 @@
+{% block body %}
+    <style>
+        body {
+            background-color: #f6f7f9; /* Замените #ffffff на цвет, который вы хотите использовать */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        .button-cursor {
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-back {
+            background-color: #007bff;
+        }
+
+    </style>
+
+    <div class="container">
+        <h2>Вы хотите удалить объявление {{ object.name }}?</h2>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Удалить</button>
+        </form>
+
+        <div class="form-group">
+            <form method="get" action="{% url 'avitoapp:details-ad' pk=object.pk %}">
+                <button type="submit" class="btn btn-back">Назад</button>
+            </form>
+        </div>
+    </div>
+
+    <br>
+{% endblock %}
