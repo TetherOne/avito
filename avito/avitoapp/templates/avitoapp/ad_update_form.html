@@ -1,51 +1,101 @@
-{% extends 'avitoapp/base.html' %}
-
-
-{% block title %}
-	Редактирование объявления
-{% endblock %}
-
-
 {% block body %}
-
     <style>
         body {
-            background-color: #f6f7f9; /* Замените #ffffff на цвет, который вы хотите использовать */
+            background-color: #f6f7f9;
         }
 
         .button-cursor {
             cursor: pointer;
         }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        label {
+            display: none;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        #description-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        #description {
+            height: 150px;
+        }
+
+        button {
+            background-color: #867DFF;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #867DFF;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
     </style>
 
-	<h1>Обновите объявление</h1>
+    <h1>Обновите объявление</h1>
+
     <div>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-                {{ form.as_p }}
+            {{ form.as_p }}
 
-            <button type="submit" class="button-cursor">
-                Сохранить
-            </button>
+
+
+
+            <div class="button-container">
+                <button type="submit" class="button-cursor">
+                    Сохранить
+                </button>
+
+                <button type="button" class="button-cursor" onclick="goBack()">
+                    Назад
+                </button>
+            </div>
         </form>
     </div>
 
-    <br>
-
-    <div class="button">
-        <form method="get" action="{% url 'avitoapp:your-profile' pk=request.user.id %}">  {# перенаправление на страницу выхода #}
-            <button type="submit" class="button-cursor">Назад</button>
-        </form>
-    </div>
-
-
-    <div>
-        <p>
-        <form method="get" action="{% url 'avitoapp:delete-ad' pk=ad.pk %}">
-            <button type="submit" class="button-cursor">Удаление</button>
-        </form>
-        </p>
-    </div>
-
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 {% endblock %}
