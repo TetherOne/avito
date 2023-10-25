@@ -28,7 +28,7 @@
         }
 
         .btn {
-            background-color: #007bff;
+            background-color: #867DFF;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -37,7 +37,7 @@
         }
 
         .btn-back {
-            background-color: #007bff;
+            background-color: #867DFF;
         }
 
     </style>
@@ -52,8 +52,8 @@
         </form>
 
         <div class="form-group">
-            <form method="get" action="{% url 'avitoapp:details-ad' pk=object.pk %}">
-                <button type="submit" class="btn btn-back">Назад</button>
+            <form method="get" action="{% url 'avitoapp:update' pk=ad.id %}">  {# перенаправление на страницу выхода #}
+                <button type="submit" class="btn">Назад</button>
             </form>
         </div>
     </div>
