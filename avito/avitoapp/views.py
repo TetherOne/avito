@@ -74,9 +74,8 @@ class AdUpdateView(UpdateView):
     form_class = AdForm
 
     def get_success_url(self):
-        return reverse(
-            'avitoapp:main-page',
-        )
+        return reverse_lazy('avitoapp:your-profile', kwargs={'pk': self.request.user.pk})
+
 
     def form_valid(self, form):
         response = super().form_valid(form)
