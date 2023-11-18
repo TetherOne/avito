@@ -136,33 +136,33 @@ LOGIN_REDIRECT_URL = '/avito/'
 
 LOGIN_URL = '/myauth/login/'
 
-LOGLEVEL = getenv("DJANGO_LOGLEVEL", "info").upper()
-
-
-logging.config.dictConfig({
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "console": {
-            "format": "%(asctime)s %(levelname)s [%(asctime)s:%(asctime)s] %(module)s %(message)s"
-        },
-    },
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "console",
-        },
-    },
-    "loggers": {
-        "": {
-            "level": LOGLEVEL,
-            "handlers": [
-                "console",
-            ],
-        },
-    },
-})
-
+# LOGLEVEL = getenv("DJANGO_LOGLEVEL", "info").upper()
+#
+#
+# logging.config.dictConfig({
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "console": {
+#             "format": "%(asctime)s %(levelname)s [%(asctime)s:%(asctime)s] %(module)s %(message)s"
+#         },
+#     },
+#     "handlers": {
+#         "console": {
+#             "class": "logging.StreamHandler",
+#             "formatter": "console",
+#         },
+#     },
+#     "loggers": {
+#         "": {
+#             "level": LOGLEVEL,
+#             "handlers": [
+#                 "console",
+#             ],
+#         },
+#     },
+# })
+#
 
 
 
