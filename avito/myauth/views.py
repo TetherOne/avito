@@ -19,7 +19,7 @@ class MyLoginView(LoginView):
 
 
 class MyLogoutView(LogoutView):
-    next_page = reverse_lazy('myauth:login')
+    next_page = reverse_lazy('avitoapp:main-page')
 
 
 class RegisterView(FormView):

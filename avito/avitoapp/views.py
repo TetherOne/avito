@@ -56,6 +56,9 @@ def your_profile(request, pk):
     }
     return render(request, 'avitoapp/your_profile.html', context=context)
 
+def your_profile_error(request):
+    return render(request, 'avitoapp/your_profile_error.html')
+
 
 class AdCreateView(CreateView):
     model = Ad
@@ -65,6 +68,10 @@ class AdCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+def ad_form_error(request: HttpRequest):
+    return render(request, 'avitoapp/ad_form_error.html')
 
 
 class AdUpdateView(UpdateView):

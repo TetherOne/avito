@@ -112,19 +112,46 @@
 
     <br>
 
+    {% if user.is_authenticated %}
     <div class="button">
         <form method="get" action="{% url 'avitoapp:create-ad' %}">
             <button type="submit" class="button-cursor">Создать объявление</button>
         </form>
     </div>
+    {% else %}
+        <div class="button">
+        <form method="get" action="{% url 'avitoapp:create-ad-error' %}">
+            <button type="submit" class="button-cursor">Создать объявление</button>
+        </form>
+    </div>
+    {% endif %}
+
+
 
     <br>
 
+
+    {% if user.is_authenticated %}
     <div class="button">
         <form method="get" action="{% url 'avitoapp:your-profile' pk=request.user.id %}">
             <button type="submit" class="button-cursor">Ваш профиль</button>
         </form>
     </div>
+    {% else %}
+        <div class="button">
+        <form method="get" action="{% url 'avitoapp:your-profile-error' %}">
+            <button type="submit">Ваш профиль</button>
+        </form>
+        </div>
+        <br>
+        <div class="button">
+            <form method="post" action="{% url 'myauth:login' %}">
+                {% csrf_token %}
+                <button type="submit" class="button-cursor">Войти</button>
+            </form>
+        </div>
+    {% endif %}
+
 
     <br>
 

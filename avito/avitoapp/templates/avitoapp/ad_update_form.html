@@ -50,6 +50,8 @@
             height: 150px;
         }
 
+
+
         button {
             background-color: #867DFF;
             color: #fff;
@@ -73,6 +75,7 @@
     <h1>Обновите объявление</h1>
 
     <div>
+
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -82,16 +85,30 @@
 
 
             <div class="button-container">
+
+
+
                 <button type="submit" class="button-cursor">
                     Сохранить
                 </button>
 
+
+
                 <button type="button" class="button-cursor" onclick="goBack()">
                     Назад
                 </button>
+
+
             </div>
         </form>
     </div>
+
+<div class="delete-button">
+    <form method="get" action="{% url 'avitoapp:delete-ad' pk=ad.id %}">
+        <button type="submit" class="button-cursor">Удалить</button>
+    </form>
+</div>
+
 
     <script>
         function goBack() {

@@ -1,0 +1,16 @@
+Сначала войдите
+
+<div class="button">
+    <form method="post" action="{% url 'myauth:login' %}">
+        {% csrf_token %}
+        <button type="submit" class="button-cursor">Войти</button>
+    </form>
+</div>
+
+<button type='button' onclick='goBack()'>Назад</button>
+
+<script>
+        function goBack() {
+            window.history.back();
+        }
+</script>
