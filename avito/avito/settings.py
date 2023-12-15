@@ -28,8 +28,7 @@ SECRET_KEY = "django-insecure-^w#-7fes$zy1_3oq-og1h6(170l*u@0dat*u)+&1&i7*d&^9)#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-]
+ALLOWED_HOSTS = ["82.97.240.119"]
 
 # Application definition
 
@@ -80,14 +79,10 @@ WSGI_APPLICATION = 'avito.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'avito_db',
-        'USER': 'postgres',
-        'PASSWORD': 'qwerty',
-        'HOST': 'localhost',
-        'PORT': 5432
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3',
+   }
 }
 
 
@@ -125,7 +120,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/root/avito/static/'
 
 MEDIA_URL = '/media/'
 
@@ -139,6 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/avito/'
 
 LOGIN_URL = '/myauth/login/'
+
 
 
 
