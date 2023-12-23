@@ -10,6 +10,7 @@ from avitoapp.models import Ad, AdImage
 
 
 
+# модель отображения объявлений на главнойс транице
 class AdsListView(ListView):
     queryset = (
         Ad.objects.select_related('user')
@@ -30,6 +31,8 @@ class AdsListView(ListView):
         return context
 
 
+
+# модель для отображения детялей объявления
 class AdDetailsView(DetailView):
     queryset = (
         Ad.objects.select_related('user')
@@ -37,6 +40,8 @@ class AdDetailsView(DetailView):
     context_object_name = 'ad'
 
 
+
+# модель для отображения чужого профиля
 def profile(request, pk, user_id):
     user = get_object_or_404(User, id=user_id)
     ads = Ad.objects.filter(user=user)
@@ -47,6 +52,8 @@ def profile(request, pk, user_id):
     return render(request, 'avitoapp/user_profile.html', context=context)
 
 
+
+# модель для отображения профиля пользователя
 def your_profile(request, pk):
     user = get_object_or_404(User, id=pk)
     ads = Ad.objects.filter(user=user)
@@ -56,10 +63,15 @@ def your_profile(request, pk):
     }
     return render(request, 'avitoapp/your_profile.html', context=context)
 
+
+
+# модель для отрисовки ошибки профиля пользователя (не аутентифицированного в системе)
 def your_profile_error(request):
     return render(request, 'avitoapp/your_profile_error.html')
 
 
+
+# модель для создания объявления
 class AdCreateView(CreateView):
     model = Ad
     fields = 'name', 'description', 'price', 'address', 'preview', 'phone'
@@ -70,10 +82,14 @@ class AdCreateView(CreateView):
         return super().form_valid(form)
 
 
+
+# модель для отрисовки ошибки при нажатии на кнопку создать объявление
 def ad_form_error(request: HttpRequest):
     return render(request, 'avitoapp/ad_form_error.html')
 
 
+
+# модель для обновления объявления
 class AdUpdateView(UpdateView):
     model = Ad
     # fields = 'name', 'description', 'price', 'address', 'preview'
@@ -95,6 +111,7 @@ class AdUpdateView(UpdateView):
 
 
 
+# модель для удаления объявления
 class AdDeleteView(DeleteView):
     model = Ad
     success_url = reverse_lazy('avitoapp:main-page')
