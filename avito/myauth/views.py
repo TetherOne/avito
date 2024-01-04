@@ -1,29 +1,46 @@
-from django.contrib.auth.views import LogoutView, LoginView
-from django.urls import reverse, reverse_lazy
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LoginView
+
+from django.urls import reverse
+from django.urls import reverse_lazy
+
 from django.views.generic import FormView
 
 from myauth.forms import RegisterForm
 
 
 
-# модель для входа на сайт
 class MyLoginView(LoginView):
+    """
+
+    Класс для входа на сайт
+
+    """
     def get_success_url(self):
         return reverse('avitoapp:main-page')
 
 
 
-# модель для выхода с сайта
 class MyLogoutView(LogoutView):
+    """
+
+    Класс для выхода с сайта
+
+    """
     next_page = reverse_lazy('avitoapp:main-page')
 
 
 
-# модель для регистрации на сайте
 class RegisterView(FormView):
+    """
+
+    Класс для регистрации на сайте
+
+    """
     form_class = RegisterForm
     template_name = 'myauth/register.html'
     success_url = reverse_lazy('myauth:login')
+
 
     def form_valid(self, form):
         form.save()

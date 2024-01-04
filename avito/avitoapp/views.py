@@ -1,39 +1,61 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpRequest, HttpResponse, Http404, HttpResponseForbidden
-from django.urls import reverse, reverse_lazy
 
-from django.views.generic import UpdateView, DetailView, TemplateView, ListView, DetailView, CreateView, DeleteView
+from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
-from avitoapp.forms import AdForm, AdSearchForm
-from avitoapp.models import Ad, AdImage
+from django.http import HttpRequest
+from django.http import HttpResponse
+
+from django.urls import reverse_lazy
+
+from django.views.generic import ListView
+from django.views.generic import UpdateView
+from django.views.generic import DetailView
+from django.views.generic import CreateView
+from django.views.generic import DeleteView
+
+from avitoapp.forms import AdForm
+from avitoapp.forms import AdSearchForm
+
+from avitoapp.models import Ad
+from avitoapp.models import AdImage
 
 
 
-# модель отображения объявлений на главнойс транице
 class AdsListView(ListView):
+    """
+
+    Класс отображения объявлений на главной странице
+
+    """
     queryset = (
         Ad.objects.select_related('user')
     )
     context_object_name = 'ads'
 
+
     def get_queryset(self):
         queryset = super().get_queryset()
-        search_term = self.request.GET.get('search_term')  # Получаем значение параметра search_term из GET-запроса
+        search_term = self.request.GET.get('search_term')
         if search_term:
             queryset = queryset.filter(name__icontains=search_term)
         return queryset
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_form'] = AdSearchForm(
-            self.request.GET)  # Создаем экземпляр формы поиска с данными из GET-запроса
+            self.request.GET)
         return context
 
 
 
-# модель для отображения детялей объявления
 class AdDetailsView(DetailView):
+    """
+
+    Класс для отображения деталей объявления
+
+    """
     queryset = (
         Ad.objects.select_related('user')
     )
@@ -41,10 +63,15 @@ class AdDetailsView(DetailView):
 
 
 
-# модель для отображения чужого профиля
-def profile(request, pk, user_id):
+def profile(request: HttpRequest, pk, user_id) -> HttpResponse:
+    """
+
+    Функция для отображения чужого профиля
+
+    """
     user = get_object_or_404(User, id=user_id)
     ads = Ad.objects.filter(user=user)
+
     context = {
         'profile_user': user,
         'ads': ads,
@@ -53,29 +80,44 @@ def profile(request, pk, user_id):
 
 
 
-# модель для отображения профиля пользователя
-def your_profile(request, pk):
+def your_profile(request: HttpRequest, pk) -> HttpResponse:
+    """
+
+    Функция для отображения профиля пользователя
+
+    """
     user = get_object_or_404(User, id=pk)
     ads = Ad.objects.filter(user=user)
+
     context = {
         'profile_user': user,
         'ads': ads,
     }
+
     return render(request, 'avitoapp/your_profile.html', context=context)
 
 
 
-# модель для отрисовки ошибки профиля пользователя (не аутентифицированного в системе)
-def your_profile_error(request):
+def your_profile_error(request: HttpRequest) -> HttpResponse:
+    """
+
+    Функция для отрисовки ошибки профиля пользователя не аутентифицированного в системе
+
+    """
     return render(request, 'avitoapp/your_profile_error.html')
 
 
 
-# модель для создания объявления
 class AdCreateView(CreateView):
+    """
+
+    Класс для создания объявления
+
+    """
     model = Ad
     fields = 'name', 'description', 'price', 'address', 'preview', 'phone'
     success_url = reverse_lazy('avitoapp:main-page')
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -83,18 +125,27 @@ class AdCreateView(CreateView):
 
 
 
-# модель для отрисовки ошибки при нажатии на кнопку создать объявление
-def ad_form_error(request: HttpRequest):
+def ad_form_error(request: HttpRequest) -> HttpResponse:
+    """
+
+    Функция для отрисовки ошибки при нажатии на кнопку создать объявление
+
+    """
     return render(request, 'avitoapp/ad_form_error.html')
 
 
 
-# модель для обновления объявления
+
 class AdUpdateView(UpdateView):
+    """
+
+    Класс для обновления объявления
+
+    """
     model = Ad
-    # fields = 'name', 'description', 'price', 'address', 'preview'
     template_name_suffix = '_update_form'
     form_class = AdForm
+
 
     def get_success_url(self):
         return reverse_lazy('avitoapp:your-profile', kwargs={'pk': self.request.user.pk})
@@ -107,11 +158,17 @@ class AdUpdateView(UpdateView):
                 ad=self.object,
                 image=image,
             )
+
         return response
 
 
 
-# модель для удаления объявления
+
 class AdDeleteView(DeleteView):
+    """
+
+    Класс для удаления объявления
+
+    """
     model = Ad
     success_url = reverse_lazy('avitoapp:main-page')

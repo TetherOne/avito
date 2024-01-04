@@ -1,10 +1,14 @@
-from django.contrib import admin
-from django.contrib.auth.views import LoginView
 from django.urls import path
 
-from myauth.views import MyLogoutView, MyLoginView, RegisterView
+from myauth.views import MyLogoutView
+from myauth.views import MyLoginView
+from myauth.views import RegisterView
+
+
 
 app_name = 'myauth'
+
+
 
 urlpatterns = [
     path('login/', MyLoginView.as_view(
