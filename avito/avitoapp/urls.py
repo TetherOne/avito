@@ -1,11 +1,21 @@
-from django.contrib import admin
 from django.contrib.auth.decorators import login_required
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 
-from .views import AdDetailsView, AdsListView, AdCreateView, AdUpdateView, AdDeleteView, profile, your_profile, your_profile_error, ad_form_error
+from django.urls import path
+
+from .views import AdDetailsView
+from .views import AdsListView
+from .views import AdCreateView
+from .views import AdUpdateView
+from .views import AdDeleteView
+from .views import profile
+from .views import your_profile
+from .views import your_profile_error
+from .views import ad_form_error
+
+
 
 app_name = 'avitoapp'
+
 
 
 urlpatterns = [

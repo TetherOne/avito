@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from avitoapp.models import Ad, AdImage
+from avitoapp.models import Ad
+from avitoapp.models import AdImage
+
 
 
 class AdInline(admin.StackedInline):

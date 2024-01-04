@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
+
 from django.db import models
 
-# Create your models here.
 
 
 def ad_preview_directory_path(instance: 'Ad', filename: str):
@@ -11,9 +11,12 @@ def ad_preview_directory_path(instance: 'Ad', filename: str):
     )
 
 
+
 class Ad(models.Model):
     """
+
     Модель объявления
+
     """
     name = models.CharField(max_length=100, db_index=True)
     description = models.TextField(null=False, blank=True)
@@ -25,11 +28,13 @@ class Ad(models.Model):
     phone = models.CharField(max_length=100, default=0)
 
 
+
 def ad_images_directory_path(instance: 'Ad', filename: str):
     return 'ads/ad_{pk}/images/{filename}'.format(
         pk=instance.ad.pk,
         filename=filename,
     )
+
 
 
 class AdImage(models.Model):
