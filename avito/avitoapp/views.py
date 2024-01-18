@@ -135,7 +135,6 @@ class AdCreateView(CreateView):
     success_url = reverse_lazy('avitoapp:main-page')
 
 
-
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -192,4 +191,12 @@ class AdDeleteView(DeleteView):
 
     """
     model = Ad
-    success_url = reverse_lazy('avitoapp:main-page')
+
+
+
+    def get_success_url(self):
+
+        cache.delete('profile_user')
+        cache.delete('ads')
+
+        return reverse_lazy('avitoapp:main-page')
