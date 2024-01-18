@@ -151,6 +151,7 @@ class AdUpdateView(UpdateView):
         return reverse_lazy('avitoapp:your-profile', kwargs={'pk': self.request.user.pk})
 
 
+
     def form_valid(self, form):
         response = super().form_valid(form)
         for image in form.files.getlist('images'):

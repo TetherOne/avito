@@ -28,7 +28,8 @@ SECRET_KEY = "django-insecure-^w#-7fes$zy1_3oq-og1h6(170l*u@0dat*u)+&1&i7*d&^9)#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["82.97.240.119"]
+# ALLOWED_HOSTS = ["82.97.240.119"]
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -135,7 +136,12 @@ LOGIN_REDIRECT_URL = '/avito/'
 
 LOGIN_URL = '/myauth/login/'
 
-
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
 
 
 
