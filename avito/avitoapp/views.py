@@ -25,7 +25,7 @@ from avitoapp.models import AdImage
 class AdsListView(ListView):
     """
 
-    Класс отображения объявлений на главной странице
+    Класс для отображения объявлений на главной странице
 
     """
     queryset = (
