@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.cache import cache
 
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
@@ -86,13 +87,28 @@ def your_profile(request: HttpRequest, pk) -> HttpResponse:
     Функция для отображения профиля пользователя
 
     """
-    user = get_object_or_404(User, id=pk)
-    ads = Ad.objects.filter(user=user)
+    cache_user = cache.get('profile_user')
+    cache_ads = cache.get('ads')
 
-    context = {
-        'profile_user': user,
-        'ads': ads,
-    }
+    if cache_ads and cache_user:
+
+        context = {
+            'profile_user': cache_user,
+            'ads': cache_ads,
+        }
+
+    else:
+
+        user = get_object_or_404(User, id=pk)
+        ads = Ad.objects.filter(user=user)
+
+        cache.set('profile_user', user, 30)
+        cache.set('ads', ads, 30)
+
+        context = {
+            'profile_user': user,
+            'ads': ads,
+        }
 
     return render(request, 'avitoapp/your_profile.html', context=context)
 
@@ -117,6 +133,7 @@ class AdCreateView(CreateView):
     model = Ad
     fields = 'name', 'description', 'price', 'address', 'preview', 'phone'
     success_url = reverse_lazy('avitoapp:main-page')
+
 
 
     def form_valid(self, form):
@@ -148,6 +165,10 @@ class AdUpdateView(UpdateView):
 
 
     def get_success_url(self):
+
+        cache.delete('profile_user')
+        cache.delete('ads')
+
         return reverse_lazy('avitoapp:your-profile', kwargs={'pk': self.request.user.pk})
 
 
@@ -161,7 +182,6 @@ class AdUpdateView(UpdateView):
             )
 
         return response
-
 
 
 
