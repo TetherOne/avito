@@ -1,8 +1,4 @@
-from django.contrib.auth.decorators import login_required
-
-from django.urls import path
-
-from .views import AdDetailsView
+from .views import AdDetailsView, AdViewSet
 from .views import AdsListView
 from .views import AdCreateView
 from .views import AdUpdateView
@@ -14,12 +10,26 @@ from .views import ad_form_error
 
 
 
+from django.contrib.auth.decorators import login_required
+
+from django.urls import path, include
+
+from rest_framework.routers import DefaultRouter
+
+
+
 app_name = 'avitoapp'
+
+
+
+routers = DefaultRouter()
+routers.register('ads', AdViewSet)
 
 
 
 urlpatterns = [
     path('', AdsListView.as_view(), name='main-page'),
+    path('api/', include(routers.urls)),
     path('create/', login_required(AdCreateView.as_view()), name='create-ad'),
     path('create/error/', ad_form_error, name='create-ad-error'),
     path('profile/<int:pk>/', your_profile, name='your-profile'),

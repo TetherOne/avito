@@ -24,10 +24,17 @@ from avitoapp.forms import AdSearchForm
 
 from avitoapp.models import Ad
 from avitoapp.models import AdImage
+
 from avitoapp.serializers import AdSerializer
 
 
-class ProductViewSet(ModelViewSet):
+
+class AdViewSet(ModelViewSet):
+    """
+
+    Класс для DRF
+
+    """
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
     filter_backends = [
@@ -35,15 +42,18 @@ class ProductViewSet(ModelViewSet):
         DjangoFilterBackend,
         OrderingFilter
     ]
+
     search_fields = ['name', 'description']
     filterset_fields = [
 
         'name',
 
     ]
+
     ordering_fields = [
         'name',
     ]
+
 
 
 class AdsListView(ListView):
@@ -100,6 +110,7 @@ def profile(request: HttpRequest, pk, user_id) -> HttpResponse:
         'profile_user': user,
         'ads': ads,
     }
+
     return render(request, 'avitoapp/user_profile.html', context=context)
 
 
@@ -194,7 +205,6 @@ class AdUpdateView(UpdateView):
         return reverse_lazy('avitoapp:your-profile', kwargs={'pk': self.request.user.pk})
 
 
-
     def form_valid(self, form):
         response = super().form_valid(form)
         for image in form.files.getlist('images'):
@@ -214,7 +224,6 @@ class AdDeleteView(DeleteView):
 
     """
     model = Ad
-
 
 
     def get_success_url(self):
