@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+
 from django.core.cache import cache
 
 from django.shortcuts import render
@@ -14,13 +15,35 @@ from django.views.generic import UpdateView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.viewsets import ModelViewSet
 
 from avitoapp.forms import AdForm
 from avitoapp.forms import AdSearchForm
 
 from avitoapp.models import Ad
 from avitoapp.models import AdImage
+from avitoapp.serializers import AdSerializer
 
+
+class ProductViewSet(ModelViewSet):
+    queryset = Ad.objects.all()
+    serializer_class = AdSerializer
+    filter_backends = [
+        SearchFilter,
+        DjangoFilterBackend,
+        OrderingFilter
+    ]
+    search_fields = ['name', 'description']
+    filterset_fields = [
+
+        'name',
+
+    ]
+    ordering_fields = [
+        'name',
+    ]
 
 
 class AdsListView(ListView):
