@@ -15,7 +15,7 @@ class AdAdmin(admin.ModelAdmin):
     inlines = [
         AdInline,
     ]
-    list_display = 'name', 'description', 'price', 'address', 'user', 'created_at'  # Определите поля для отображения
+    list_display = 'name', 'description', 'price', 'address', 'user', 'created_at'
     fieldsets = [
         ('Images', {
             'fields': ('preview',),

@@ -3,6 +3,7 @@ from rest_framework import serializers
 from avitoapp.models import Ad
 
 
+
 class AdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad

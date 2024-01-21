@@ -18,6 +18,7 @@ class AdForm(forms.ModelForm):
         widget=forms.ClearableFileInput(attrs={"allow_multiple_selected": True}), required=False)
 
 
+
 class AdSearchForm(forms.Form):
     """
 
