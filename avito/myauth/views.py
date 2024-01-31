@@ -11,7 +11,6 @@ from django.urls import reverse
 
 
 
-
 class MyLoginView(LoginView):
 
     def get_success_url(self):
