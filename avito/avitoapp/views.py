@@ -9,13 +9,13 @@ from django.shortcuts import get_object_or_404
 
 from avitoapp.serializers import AdSerializer
 
+from django.contrib.auth.models import User
+
 from django.views.generic import UpdateView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import ListView
-
-from django.contrib.auth.models import User
 
 from avitoapp.forms import AdSearchForm
 from avitoapp.forms import AdForm

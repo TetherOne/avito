@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
 
-    'myapiapp.apps.MyapiappConfig',
     'avitoapp.apps.AvitoappConfig',
     'myauth.apps.MyauthConfig',
 ]
