@@ -5,6 +5,7 @@ from django.db import models
 
 
 def ad_preview_directory_path(instance: 'Ad', filename: str):
+
     return 'ads/ad_{pk}/preview/{filename}'.format(
         pk=instance.pk,
         filename=filename,
@@ -13,11 +14,7 @@ def ad_preview_directory_path(instance: 'Ad', filename: str):
 
 
 class Ad(models.Model):
-    """
 
-    Модель объявления
-
-    """
     name = models.CharField(max_length=100, db_index=True)
     description = models.TextField(null=False, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=0)
@@ -30,6 +27,7 @@ class Ad(models.Model):
 
 
 def ad_images_directory_path(instance: 'Ad', filename: str):
+
     return 'ads/ad_{pk}/images/{filename}'.format(
         pk=instance.ad.pk,
         filename=filename,
@@ -38,6 +36,7 @@ def ad_images_directory_path(instance: 'Ad', filename: str):
 
 
 class AdImage(models.Model):
+
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to=ad_images_directory_path)
 

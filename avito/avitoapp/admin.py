@@ -1,7 +1,7 @@
-from django.contrib import admin
-
-from avitoapp.models import Ad
 from avitoapp.models import AdImage
+from avitoapp.models import Ad
+
+from django.contrib import admin
 
 
 
@@ -9,7 +9,7 @@ class AdInline(admin.StackedInline):
     model = AdImage
 
 
-# Register your models here.
+
 @admin.register(Ad)
 class AdAdmin(admin.ModelAdmin):
     inlines = [

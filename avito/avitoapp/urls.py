@@ -1,20 +1,20 @@
-from .views import AdDetailsView, AdViewSet
-from .views import AdsListView
+from django.contrib.auth.decorators import login_required
+
+from rest_framework.routers import DefaultRouter
+
+from .views import your_profile_error
+from .views import AdDetailsView
+from .views import ad_form_error
 from .views import AdCreateView
 from .views import AdUpdateView
 from .views import AdDeleteView
-from .views import profile
 from .views import your_profile
-from .views import your_profile_error
-from .views import ad_form_error
+from .views import AdsListView
+from .views import AdViewSet
+from .views import profile
 
-
-
-from django.contrib.auth.decorators import login_required
-
-from django.urls import path, include
-
-from rest_framework.routers import DefaultRouter
+from django.urls import include
+from django.urls import path
 
 
 

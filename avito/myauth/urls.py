@@ -1,8 +1,8 @@
-from django.urls import path
-
 from myauth.views import MyLogoutView
 from myauth.views import MyLoginView
 from myauth.views import RegisterView
+
+from django.urls import path
 
 
 

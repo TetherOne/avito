@@ -1,35 +1,36 @@
-from django.contrib.auth.models import User
+from django_filters.rest_framework import DjangoFilterBackend
 
-from django.core.cache import cache
+from rest_framework.filters import OrderingFilter
+from rest_framework.filters import SearchFilter
 
-from django.shortcuts import render
+from rest_framework.viewsets import ModelViewSet
+
 from django.shortcuts import get_object_or_404
 
-from django.http import HttpRequest
-from django.http import HttpResponse
+from avitoapp.serializers import AdSerializer
 
-from django.urls import reverse_lazy
-
-from django.views.generic import ListView
 from django.views.generic import UpdateView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
+from django.views.generic import ListView
 
-from django_filters.rest_framework import DjangoFilterBackend
+from django.contrib.auth.models import User
 
-from rest_framework.filters import SearchFilter
-from rest_framework.filters import OrderingFilter
-
-from rest_framework.viewsets import ModelViewSet
-
-from avitoapp.forms import AdForm
 from avitoapp.forms import AdSearchForm
+from avitoapp.forms import AdForm
 
-from avitoapp.models import Ad
+from django.shortcuts import render
+
+from django.http import HttpResponse
+from django.http import HttpRequest
+
+from django.urls import reverse_lazy
+
 from avitoapp.models import AdImage
+from avitoapp.models import Ad
 
-from avitoapp.serializers import AdSerializer
+from django.core.cache import cache
 
 
 
@@ -61,11 +62,7 @@ class AdViewSet(ModelViewSet):
 
 
 class AdsListView(ListView):
-    """
 
-    Класс для отображения объявлений на главной странице
-
-    """
     queryset = (
         Ad.objects.select_related('user')
     )
@@ -89,11 +86,7 @@ class AdsListView(ListView):
 
 
 class AdDetailsView(DetailView):
-    """
 
-    Класс для отображения деталей объявления
-
-    """
     queryset = (
         Ad.objects.select_related('user')
     )
@@ -122,7 +115,7 @@ def profile(request: HttpRequest, pk, user_id) -> HttpResponse:
 def your_profile(request: HttpRequest, pk) -> HttpResponse:
     """
 
-    Функция для отображения профиля пользователя
+    Функция для отображения текущего пользователя
 
     """
     cache_user = cache.get('profile_user')
@@ -153,21 +146,13 @@ def your_profile(request: HttpRequest, pk) -> HttpResponse:
 
 
 def your_profile_error(request: HttpRequest) -> HttpResponse:
-    """
 
-    Функция для отрисовки ошибки профиля пользователя не аутентифицированного в системе
-
-    """
     return render(request, 'avitoapp/your_profile_error.html')
 
 
 
 class AdCreateView(CreateView):
-    """
 
-    Класс для создания объявления
-
-    """
     model = Ad
     fields = 'name', 'description', 'price', 'address', 'preview', 'phone'
     success_url = reverse_lazy('avitoapp:main-page')
@@ -180,22 +165,14 @@ class AdCreateView(CreateView):
 
 
 def ad_form_error(request: HttpRequest) -> HttpResponse:
-    """
 
-    Функция для отрисовки ошибки при нажатии на кнопку создать объявление
-
-    """
     return render(request, 'avitoapp/ad_form_error.html')
 
 
 
 
 class AdUpdateView(UpdateView):
-    """
 
-    Класс для обновления объявления
-
-    """
     model = Ad
     template_name_suffix = '_update_form'
     form_class = AdForm
@@ -222,11 +199,7 @@ class AdUpdateView(UpdateView):
 
 
 class AdDeleteView(DeleteView):
-    """
 
-    Класс для удаления объявления
-
-    """
     model = Ad
 
 
