@@ -115,7 +115,7 @@ def profile(request: HttpRequest, pk, user_id) -> HttpResponse:
 def your_profile(request: HttpRequest, pk) -> HttpResponse:
     """
 
-    Функция для отображения текущего пользователя
+    Функция для отображения профиля текущего пользователя
 
     """
     cache_user = cache.get('profile_user')
