@@ -144,7 +144,6 @@ def your_profile(request: HttpRequest, pk) -> HttpResponse:
     return render(request, 'avitoapp/your_profile.html', context=context)
 
 
-
 def your_profile_error(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'avitoapp/your_profile_error.html')
@@ -167,7 +166,6 @@ class AdCreateView(CreateView):
 def ad_form_error(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'avitoapp/ad_form_error.html')
-
 
 
 
@@ -201,7 +199,6 @@ class AdUpdateView(UpdateView):
 class AdDeleteView(DeleteView):
 
     model = Ad
-
 
     def get_success_url(self):
 
