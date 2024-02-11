@@ -144,6 +144,7 @@ def your_profile(request: HttpRequest, pk) -> HttpResponse:
     return render(request, 'avitoapp/your_profile.html', context=context)
 
 
+
 def your_profile_error(request: HttpRequest) -> HttpResponse:
 
     return render(request, 'avitoapp/your_profile_error.html')
